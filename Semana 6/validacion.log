@@ -1,0 +1,17 @@
+--- VALIDACIÓN RECEPTOR BÁSICO (Reto 2) ---
+[*] Conectando a https://api.ecomarket.com/alertas (Intento 1) con headers: {'Accept': 'text/event-stream'}
+[PRECIO] Actualizado: {"producto":"A01","precio":47}
+⚠️ [ALERTA STOCK] Crítico: {"producto":"B07","stock":1}
+[PRECIO] Actualizado: {"producto":"A01","precio":45}
+[!] Timeout de red.
+[*] Conectando a https://api.ecomarket.com/alertas (Intento 2) con headers: {'Accept': 'text/event-stream', 'Last-Event-ID': '3'}
+[*] Detención limpia solicitada.
+
+--- VALIDACIÓN RECEPTOR V2 + OBSERVER (Reto 5) ---
+[*] Conectando a https://api.ecomarket.com/alertas (Intento 1)
+[AUDITORIA] Registrando evento 'precio-actualizado' -> Datos: {"producto":"A01","precio":47}
+[UI Precios] Tabla actualizada con: {"producto":"A01","precio":47}
+[AUDITORIA] Registrando evento 'stock-critico' -> Datos: {"producto":"B07","stock":1}
+[ALERTA URGENTE] Stock crítico detectado: {"producto":"B07","stock":1}
+[AUDITORIA] Registrando evento 'otro-evento' -> Datos: {}
+[*] Detención limpia solicitada.
