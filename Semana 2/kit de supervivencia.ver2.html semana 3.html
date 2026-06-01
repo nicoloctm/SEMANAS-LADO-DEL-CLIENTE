@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anexo Técnico: Kit de Supervivencia V2 | AETL</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+--uan-primary: #003a63;
+--uan-secondary: #005b96;
+--uan-accent: #f2a900;
+--uan-light: #e8f4fc;
+--uan-dark: #001f36;
+--code-bg: #1e1e1e;
+--error-bg: #fee2e2;
+--error-text: #991b1b;
+--font-serif: 'Source Serif 4', Georgia, serif;
+        --font-sans: 'Inter', -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        
+        --radius-md: 8px;
+        --radius-lg: 16px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: var(--font-sans);
+        background: #f3f4f6;
+        color: #1f2937;
+        line-height: 1.6;
+        padding-bottom: 4rem;
+    }
+
+    /* HEADER */
+    .header-tecnico {
+        background: var(--uan-dark);
+        color: white;
+        padding: 3rem 1rem;
+        text-align: center;
+        border-bottom: 5px solid var(--uan-accent);
+    }
+
+    .header-badge {
+        background: var(--uan-accent);
+        color: var(--uan-primary);
+        padding: 0.25rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .header-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 0.5rem;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+        max-width: 1000px;
+        margin: -2rem auto 0;
+        padding: 0 1rem;
+    }
+
+    /* CARDS */
+    .tech-card {
+        background: white;
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+        border-top: 4px solid transparent;
+    }
+
+    .tech-card.priority-high { border-top-color: #ef4444; }
+    .tech-card.priority-med { border-top-color: var(--uan-accent); }
+
+    .tech-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .tech-icon {
+        font-size: 1.5rem;
+        background: var(--uan-light);
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: var(--uan-primary);
+    }
+
+    .tech-title {
+        color: var(--uan-primary);
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    /* ALERTS */
+    .alert-box {
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        margin: 1rem 0;
+        font-size: 0.95rem;
+        border-left: 4px solid;
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .alert-danger {
+        background: var(--error-bg);
+        color: var(--error-text);
+        border-left-color: #dc2626;
+    }
+
+    .alert-info {
+        background: var(--uan-light);
+        color: var(--uan-primary);
+        border-left-color: var(--uan-secondary);
+    }
+
+    /* CODE BLOCKS */
+    .code-block {
+        background: var(--code-bg);
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: var(--radius-md);
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        overflow-x: auto;
+        margin: 1rem 0;
+        line-height: 1.5;
+    }
+    
+    .code-comment { color: #6b7280; font-style: italic; }
+    .code-cmd { color: #fbbf24; }
+
+    /* PROMPTS */
+    .prompt-box {
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        margin-top: 1.5rem;
+    }
+
+    .prompt-header {
+        background: #18181b;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--uan-accent);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .prompt-content {
+        padding: 1.5rem;
+        color: #d4d4d8;
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+    }
+
+    /* TABLES */
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+    }
+
+    .comparison-table th {
+        background: var(--uan-light);
+        color: var(--uan-primary);
+        padding: 0.75rem;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .comparison-table td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 0.9rem;
+    }
+
+    .comparison-table tr:last-child td { border-bottom: none; }
+
+    /* FLOWCHART ASCII */
+    .flowchart {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        line-height: 1.4;
+        color: #374151;
+        overflow-x: auto;
+        white-space: pre;
+    }
+
+    .flowchart strong { color: var(--uan-primary); }
+    .flowchart .success { color: #059669; font-weight: bold; }
+    .flowchart .error { color: #dc2626; font-weight: bold; }
+
+</style>
+</head>
+<body>
+<header class="header-tecnico">
+    <div class="header-badge">LECTURA OBLIGATORIA</div>
+    <h1 class="header-title">Kit de Supervivencia Técnica</h1>
+    <p>Soluciones a los bloqueos más comunes que causan abandono en las Semanas 1, 2 y 3</p>
+</header>
+
+<main class="main-content">
+
+    <!-- 1. INSTALACIÓN / PATH -->
+    <section class="tech-card priority-high">
+        <div class="tech-header">
+            <div class="tech-icon">🛑</div>
+            <div class="tech-title">1. ¿Python no responde? (El problema del PATH)</div>
+        </div>
+        
+        <p>Si escribes <code>python</code> en tu terminal y no pasa nada, o se abre la Microsoft Store, <strong>no tienes configurado el PATH</strong>. Este es el motivo #1 de bloqueo en la primera semana.</p>
+
+        <div class="alert-box alert-danger">
+            <span>⚠️</span>
+            <div>
+                <strong>Síntoma:</strong> Error <code>'python' no se reconoce como un comando interno o externo...</code>
+            </div>
+        </div>
+
+        <div class="prompt-box">
+            <div class="prompt-header">
+                <span>🤖 Prompt de Rescate</span>
+            </div>
+            <div class="prompt-content">Actúa como soporte técnico de Windows/Mac. Escribo 'python' en mi terminal y recibo un error de que no se reconoce el comando.
+			Ayúdame a:
+Verificar si tengo Python instalado.
+Agregar Python a las Variables de Entorno (PATH) paso a paso.
+Verificar que funcione.
+Mi sistema operativo es: [Windows 11 / MacOS / Linux]</div>
+</div>
+</section>
+<!-- 2. ESTRUCTURA DEL PROYECTO -->
+ <section class="tech-card priority-med">
+     <div class="tech-header">
+         <div class="tech-icon">📂</div>
+         <div class="tech-title">2. No programes todo en un solo archivo</div>
+     </div>
+     <p>Un error común es tener un archivo gigante. Organiza tu proyecto así desde el día 1 para evitar caos:</p>
+
+     <div class="flowchart">
+	 proyecto_ecomarket/
+├── <strong class="success">venv/</strong> <span class="code-comment"># Entorno virtual (¡NO LO TOQUES!)</span>
+├── <strong>db.json</strong> <span class="code-comment"># Base de datos del Mock Server</span>
+├── <strong>src/</strong> <span class="code-comment"># Tu código fuente</span>
+│ ├── cliente_sync.py <span class="code-comment"># Semana 2 (Requests)</span>
+│ ├── cliente_async.py <span class="code-comment"># Semana 3 (Aiohttp)</span>
+│ ├── validadores.py <span class="code-comment"># Funciones reutilizables</span>
+│ └── config.py <span class="code-comment"># URLs y constantes</span>
+└── <strong>tests/</strong> <span class="code-comment"># Tus pruebas</span>
+├── test_sync.py
+└── test_async.py</div>
+</section>
+<!-- 3. REQUESTS VS AIOHTTP -->
+    <section class="tech-card priority-high">
+        <div class="tech-header">
+            <div class="tech-icon">⚡</div>
+            <div class="tech-title">3. Zona de Peligro: Síncrono vs Asíncrono</div>
+        </div>
+        <div class="alert-box alert-danger">
+            <span>☠️</span>
+            <div>
+                <strong>REGLA DE ORO:</strong> Nunca mezcles <code>requests</code> dentro de una función <code>async def</code>. Esto bloquea todo el programa y anula la ventaja de la asincronía.
+            </div>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>Semana 2 (requests)</th>
+                    <th>Semana 3 (aiohttp)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Tipo</strong></td>
+                    <td>Bloqueante (Una cosa a la vez)</td>
+                    <td>No bloqueante (Multitarea)</td>
+                </tr>
+                <tr>
+                    <td><strong>Instalación</strong></td>
+                    <td><code>pip install requests</code></td>
+                    <td><code>pip install aiohttp</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Definición</strong></td>
+                    <td><code>def obtener():</code></td>
+                    <td><code>async def obtener():</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Llamada</strong></td>
+                    <td><code>requests.get(url)</code></td>
+                    <td><code>await session.get(url)</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Cuándo usar</strong></td>
+                    <td>Scripts simples, CLI, pruebas</td>
+                    <td>Dashboards, Scrapers, Alto rendimiento</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 4. MAPA DE DEPURACIÓN -->
+    <section class="tech-card priority-high">
+        <div class="tech-header">
+            <div class="tech-icon">🗺️</div>
+            <div class="tech-title">4. Mapa de Ruta de Depuración</div>
+        </div>
+        <p>¿Tu código falla y no sabes por qué? Sigue este diagrama antes de pedir ayuda.</p>
+
+        <div class="flowchart" style="white-space: pre-wrap; word-wrap: break-word; padding: 1.8rem 1.2rem;">
+<strong class="success">INICIO: Mi petición falla</strong>
+│
+▼
+<strong>¿Funciona en Postman / Thunder Client?</strong>
+│
+├─ <span class="error">NO</span> ──► <strong>Revisa el Servidor (Mock Server)</strong>
+│   • ¿Está corriendo json-server?
+│   • ¿Puerto 3000 libre? (netstat / lsof -i:3000)
+│   • ¿db.json existe y tiene formato válido?
+│   • Reinicia la terminal del servidor
+│
+└─ <span class="success">SÍ</span> ──► <strong>El problema está en Python</strong>
+    │
+    ▼
+<strong>¿URL correcta?[](http://localhost:3000/productos)</strong>
+    │
+    ├─ <span class="error">NO</span> ──► Corrige: localhost vs 127.0.0.1, puerto, /productos vs /api/productos
+    │
+    └─ <span class="success">SÍ</span> ──► <strong>Revisa excepciones y logging</strong>
+        │
+        ▼
+<strong>Activa logging + imprime headers y response.text</strong>
+</div>
+</section>
+<!-- 5. DICCIONARIO DE ERRORES -->
+    <section class="tech-card priority-med">
+        <div class="tech-header">
+            <div class="tech-icon">📖</div>
+            <div class="tech-title">5. Diccionario de Errores "Googleables"</div>
+        </div>
+        <p>Traducción de lo que Python te grita a español humano.</p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>El Error (Python)</th>
+                    <th>La Realidad (Español)</th>
+                    <th>Solución Rápida</th>
+                </tr>
+            </thead>
+            <tbody>
+			<tr>
+    <td><code>requests.exceptions.Timeout</code> / <code>asyncio.TimeoutError</code></td>
+    <td>"El servidor tardó demasiado en contestar"</td>
+    <td>
+        1. Siempre pon timeout explícito (ej: 10-15 s)<br>
+        2. En async: <code>async with timeout(10):</code> o <code>session.get(..., timeout=10)</code><br>
+        3. Decide si reintentar (5xx sí, 4xx no)
+    </td>
+</tr>
+                <tr>
+                    <td><code>JSONDecodeError: Expecting value...</code></td>
+                    <td>"El servidor me devolvió algo que no es JSON (probablemente HTML de error o texto vacío)".</td>
+                    <td>Imprime <code>response.text</code> antes de hacer <code>.json()</code> para ver qué llegó realmente.</td>
+                </tr>
+                <tr>
+                    <td><code>ClientConnectorError: Connection refused</code></td>
+                    <td>"Toqué el timbre y nadie abrió".</td>
+                    <td>El servidor (json-server) está apagado o el puerto es incorrecto.</td>
+                </tr>
+                <tr>
+                    <td><code>RuntimeWarning: coroutine ... was never awaited</code></td>
+                    <td>"Preparaste la tarea pero nunca le diste 'Start'".</td>
+                    <td>Te faltó poner <code>await</code> antes de llamar a la función async.</td>
+                </tr>
+                <tr>
+                    <td><code>401 Unauthorized</code></td>
+                    <td>"No tienes permiso".</td>
+                    <td>Te falta el header <code>Authorization</code> o el token venció.</td>
+                </tr>
+                <tr>
+                    <td><code>429 Too Many Requests</code></td>
+                    <td>"¡Cálmate! Vas muy rápido".</td>
+                    <td>Estás saturando el servidor. Usa un semáforo o duerme entre peticiones.</td>
+                </tr>
+            </tbody>
+        </table>
+			<div class="alert-box alert-danger">
+    <span>☠️</span>
+    <div>
+        <strong>Regla de supervivencia #1 en aiohttp:</strong><br>
+        SIEMPRE usa <code>async with aiohttp.ClientSession() as session:</code><br>
+        o cierra manualmente con <code>await session.close()</code><br><br>
+        Si no lo haces → tu programa se queda sin conexiones después de 100-300 peticiones.
+    </div>
+</div>
+    </section>
+
+<!-- 7. SATURACIÓN DE PETICIONES (429 o colapso) -->
+<section class="tech-card priority-med">
+    <div class="tech-header">
+        <div class="tech-icon">🚦</div>
+        <div class="tech-title">6. ¿Demasiadas peticiones a la vez? (429 Too Many Requests)</div>
+    </div>
+    
+    <p>asyncio te permite lanzar 50, 100 o más peticiones simultáneas… pero el servidor (incluso json-server) puede colapsar o devolver 429.</p>
+    
+    <div class="alert-box alert-danger">
+        <span>⚠️</span>
+        <div>
+            <strong>Síntomas comunes:</strong><br>
+            Muchos 429, 500, o simplemente el servidor deja de responder.<br>
+            El programa parece "colgarse" aunque no hay error visible.
+        </div>
+    </div>
+
+    <h3>Solución recomendada: Usa un Semáforo</h3>
+    <div class="code-block">
+<span class="code-comment"># Limita a máximo 8-12 peticiones simultáneas</span>
+sem = asyncio.Semaphore(10)
+
+async def peticion_segura(url, session):
+    async with sem:                   <span class="code-comment"># Solo 10 corutinas entran aquí a la vez</span>
+        async with session.get(url, timeout=15) as resp:
+            if resp.status != 200:
+                raise Exception(f"Error {resp.status}")
+            return await resp.json()
+</div>
+
+    <p>Coloca el <code>Semaphore</code> al inicio de tu script principal y envuelve cada petición en <code>async with sem:</code>.</p>
+
+    <div class="prompt-box">
+        <div class="prompt-header">
+            <span>🤖 Prompt de rescate para saturación</span>
+        </div>
+        <div class="prompt-content">Estoy haciendo muchas peticiones simultáneas con aiohttp y recibo errores 429 o el servidor se cuelga.
+Genera un ejemplo completo usando asyncio.Semaphore para limitar a 8-12 peticiones concurrentes.
+Incluye manejo de timeout y reintentos simples para 5xx.
+Mi código actual usa asyncio.gather(...)</div>
+    </div>
+</section>
+    <!-- 6. EL PROMPT MAESTRO -->
+    <section class="tech-card priority-high" style="border-top-color: #8b5cf6;">
+        <div class="tech-header">
+            <div class="tech-icon">🧞</div>
+            <div class="tech-title">7. El Prompt Maestro de Depuración</div>
+        </div>
+        <p>Si todo lo demás falla, usa este prompt con tu IA favorita. Es el formato que usan los ingenieros senior para obtener respuestas útiles.</p>
+
+        <div class="prompt-box">
+            <div class="prompt-header">
+                <span>COPIAR Y COMPLETAR</span>
+            </div>
+            <div class="prompt-content">Actúa como un debugger senior experto en Python, HTTP y Asyncio.
+			Tengo este código que está fallando:
+─────────────────────────────────────
+[PEGAR AQUÍ TUS 30-50 LÍNEAS DE CÓDIGO RELEVANTES]
+─────────────────────────────────────
+Estoy intentando: [EXPLICAR TU OBJETIVO EN 1 ORACIÓN, EJ: "Hacer 5 peticiones GET en paralelo"]
+Lo que esperaba que pasara: ____________________
+Lo que realmente pasó: ____________________
+Errores / Logs / Traceback completos:
+─────────────────────────────────────
+[PEGAR EL ERROR COMPLETO AQUÍ]
+─────────────────────────────────────
+Mi entorno: Python 3.xx, [Windows/Mac], usando [requests/aiohttp].
+Por favor ayúdame a encontrar el error principal y dame:
+Una explicación clara de por qué está fallando (sin tecnicismos excesivos).
+La corrección mínima recomendada en el código.
+¿Qué concepto debería repasar para no cometer este error de nuevo?</div>
+</div>
+</section>
+<div class="tech-card" style="background: #ecfdf5; border-top: 4px solid #10b981; margin-top: 2rem;">
+    <div class="tech-header">
+        <div class="tech-icon">🚀</div>
+        <div class="tech-title">¡Tú puedes con esto!</div>
+    </div>
+    <p>Este kit cubre el 80-90% de los bloqueos que hacen que los estudiantes abandonen en las primeras semanas.</p>
+    <p>Si después de seguir el mapa de depuración y usar el <strong>Prompt Maestro</strong> sigues atorado:</p>
+    <ul style="margin-left: 1.5rem; color: #065f46;">
+        <li>Pega el prompt en Grok, Claude, ChatGPT o Gemini (¡todos funcionan bien con este formato!)</li>
+        <li>Incluye siempre el traceback completo + 30-50 líneas de código relevante</li>
+        <li>No te rindas en la primera frustración — cada error que resuelves te hace mucho mejor programador</li>
+    </ul>
+    <p style="font-weight: 600; color: #065f46; margin-top: 1rem;">¡Adelante, futuro Licenciado en Sistemas Computacionales! 💪</p>
+</div>
+</main>
+<footer style="text-align: center; padding: 2rem; color: #6b7280; font-size: 0.9rem;">
+<p>Universidad Autónoma de Nayarit · Programación Distribuida del lado del Cliente· Sistemas Computacionales</p>
+<p>Dr. Eligardo Cruz Sánchez</p>
+</footer>
+</body>
+</html>
