@@ -1,0 +1,16 @@
+[10:00:00] Iniciando MonitorInventario...
+[10:00:00] PRUEBA A: El servidor tarda 15s en responder (timeout de mi cliente es 10s)
+[10:00:10] Timeout detectado. Aumentando backoff a 10s...
+[10:00:20] PRUEBA B: El servidor responde con HTML en lugar de JSON (Content-Type incorrecto)
+[10:00:20] ERROR SERVER: JSONDecodeError. Aplicando backoff a 20s...
+[10:00:40] PRUEBA C: Un observador lanza una excepción no capturada dentro de su callback
+[10:00:41] [Error] Observador falló: Exception en observador animacion
+[10:00:41] UI Actualizada con productos: [{'id': 1, 'stock': 5}]
+[10:01:00] PRUEBA D: El servidor devuelve 200 pero el campo "productos" viene como null
+[10:01:01] [Error] Observador falló: TypeError 'NoneType' object is not iterable
+[10:01:01] UI Actualizada con productos: None
+[10:01:05] MonitorInventario detenido.
+
+# PRUEBA DE DESACOPLAMIENTO:
+# Agregué observador_4 y lo quité sin modificar ServicioPolling. ✓
+# ServicioPolling no tiene referencia directa a ningún observador. ✓
