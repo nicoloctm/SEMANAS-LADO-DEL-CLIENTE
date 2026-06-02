@@ -1,0 +1,47 @@
+DIAGRAMA DE FLUJO INTEGRADO — CLIENTE ROBUSTO ECOMARKET
+======================================================
+Escenario: Ejecución de GET /api/inventario con SSE activo, token próximo a expirar y Circuit Breaker en SEMIABIERTO.
+
+Flujo de Ejecución Paso a Paso:
+-------------------------------
+
+PETICIÓN: ClienteRobusto.get_inventario() (equivalente a ClienteRobusto.get('/productos'))
+│
+├── [?1] VERIFICACIÓN DE EXPIRACIÓN DEL TOKEN
+│        Componente: TokenManager
+│        Método de verificación: is_expiring_soon()
+│        Método de refresco (si expira): refresh_access_token() (implementado por TokenManager)
+│        Justificación: TokenManager es el único componente encargado del ciclo de vida y estado de las credenciales (SRP).
+│
+├── [?2] LLAMADA AL CIRCUIT BREAKER (circuit_breaker.ejecutar)
+│        Estado del CircuitBreaker: SEMIABIERTO
+│        
+│        Salidas y comportamientos en este estado:
+│        - Salida A (peticiones concurrentes adicionales): Se rechazan de forma inmediata lanzando CircuitOpenError
+│          para garantizar que no se sobrecargue el servidor durante la fase de prueba (INV-A2).
+│        - Salida B (la petición de prueba pasa): Se permite que pase exactamente una petición al servidor mock
+│          (se establece la bandera _peticion_de_prueba_en_curso = True).
+│        - Salida C (resultado de la petición de prueba):
+│             * Si la petición tiene éxito (HTTP 200) -> Transiciona a CERRADO y limpia contadores.
+│             * Si la petición falla (HTTP 5xx / Red) -> Transiciona a ABIERTO y reinicia el timeout.
+│
+├── [?3] TRANSICIÓN POR ÉXITO (HTTP 200 OK)
+│        Transición que ocurre: SEMIABIERTO ──► CERRADO
+│        Método que la ejecuta: _on_exito() en el CircuitBreaker.
+│        Atributos que se resetean y sus valores:
+│        - self._fallos = 0
+│        - self._peticion_de_prueba_en_curso = False
+│        - self._tiempo_apertura = None
+│
+├── [?4] COMPORTAMIENTO SIMULTÁNEO DE SSE (ClienteSSEMultiplex)
+│        ¿La apertura del Circuit Breaker HTTP interrumpe el stream SSE activo?
+│        Respuesta: No.
+│        Justificación: Son canales lógicos independientes. El CircuitBreaker envuelve las peticiones HTTP directas
+│        del ClienteRobusto (peticiones Request-Response), mientras que ClienteSSEMultiplex gestiona una conexión 
+│        persistente de solo lectura (Stream unidireccional TCP). La apertura del CB de consultas no corta la conexión SSE.
+│
+└── [?5] INDEPENDENCIA DE COMPONENTES (TokenManager y CircuitBreaker)
+         ¿El TokenManager sabe que el Circuit Breaker acaba de cerrarse?
+         Respuesta: No.
+         Justificación: De acuerdo con el invariante INV-B1 y el principio de Responsabilidad Única (SRP), el TokenManager
+         es totalmente agnóstico del estado del CircuitBreaker. No almacena ni consulta ninguna propiedad del disyuntor.
